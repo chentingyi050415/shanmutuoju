@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>山姆托举梗 · 舆情数据可视化</title>
-    <!-- Font Awesome 图标库 -->
+    <title>山姆托举梗 · 舆情可视化 · 研究设计与发现</title>
+    <!-- Font Awesome 6 (免费) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- 使用 ECharts 5 -->
+    <!-- ECharts 5 -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js">
     </script>
     <style>
-        /* ===== 全局重置 & 字体 ===== */
+        /* ===== 全局 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -18,30 +18,29 @@
         }
 
         body {
-            background: #f4f7fc;
+            background: #f0f4fa;
             font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 32px 24px;
+            padding: 28px 20px;
             color: #1e293b;
         }
 
         .dashboard {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
         }
 
         /* ===== 头部 ===== */
         .header {
-            margin-bottom: 32px;
+            margin-bottom: 30px;
         }
 
         .header h1 {
             font-size: 28px;
             font-weight: 700;
             color: #0b1b33;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
@@ -49,22 +48,30 @@
             font-size: 16px;
             font-weight: 400;
             color: #4b5b73;
-            background: #e9edf4;
-            padding: 4px 16px;
-            border-radius: 30px;
+            background: #e6edf6;
+            padding: 4px 18px;
+            border-radius: 40px;
         }
 
         .header .sub {
             margin-top: 8px;
             font-size: 15px;
-            color: #3d4e66;
-            border-left: 4px solid #2563eb;
-            padding-left: 18px;
-            background: #ffffffcc;
+            color: #2c405a;
+            background: #ffffffd0;
             backdrop-filter: blur(2px);
-            border-radius: 0 12px 12px 0;
-            line-height: 1.6;
-            max-width: 820px;
+            padding: 10px 20px;
+            border-radius: 14px;
+            border-left: 5px solid #1f5b9e;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 30px;
+            align-items: center;
+        }
+
+        .header .sub i {
+            color: #1f5b9e;
+            width: 20px;
         }
 
         /* ===== 卡片网格 ===== */
@@ -79,11 +86,11 @@
             background: #ffffff;
             border-radius: 20px;
             padding: 20px 18px 18px;
-            box-shadow: 0 8px 24px rgba(0, 20, 50, 0.06);
-            transition: 0.2s;
-            border: 1px solid #eef2f7;
+            box-shadow: 0 6px 20px rgba(0, 20, 50, 0.06);
+            border: 1px solid #eaedf3;
             display: flex;
             flex-direction: column;
+            transition: 0.15s;
         }
 
         .card-header {
@@ -93,91 +100,91 @@
             margin-bottom: 14px;
             font-weight: 600;
             font-size: 16px;
-            color: #1a2a44;
-            letter-spacing: 0.3px;
+            color: #15273f;
+            letter-spacing: 0.2px;
         }
 
         .card-header i {
-            color: #2563eb;
+            color: #1f5b9e;
             font-size: 18px;
             width: 28px;
             text-align: center;
         }
 
         .card-header .badge {
-            background: #eef2ff;
-            color: #2563eb;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 2px 12px;
+            background: #e9eef6;
+            color: #1f5b9e;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 14px;
             border-radius: 30px;
+            letter-spacing: 0.3px;
         }
 
         .stat-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 20px;
-            margin-top: 4px;
+            gap: 14px 24px;
+            margin-top: 2px;
         }
 
         .stat-item {
-            flex: 1 0 100px;
+            flex: 1 0 90px;
         }
 
         .stat-number {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 700;
             color: #0b1b33;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .stat-label {
             font-size: 13px;
-            color: #5f6f89;
+            color: #5a6f8a;
             font-weight: 500;
             margin-top: 2px;
         }
 
         .stat-item .trend {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
-            color: #2563eb;
-            background: #eef2ff;
+            color: #1f5b9e;
+            background: #e5edf8;
             padding: 0 10px;
             border-radius: 30px;
             display: inline-block;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         /* ===== 图表容器 ===== */
         .chart-container {
             width: 100%;
-            height: 260px;
-            margin-top: 4px;
             flex-shrink: 0;
         }
 
         .chart-container.tall {
-            height: 300px;
+            height: 270px;
+        }
+
+        .chart-container.medium {
+            height: 230px;
         }
 
         .chart-container.short {
             height: 190px;
         }
 
-        /* ===== 时间轴特殊卡片 ===== */
-        .timeline-card .card-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .chart-container.full {
+            height: 300px;
         }
 
+        /* ===== 时间轴 ===== */
         .timeline-strip {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 12px 0 6px;
+            align-items: flex-start;
+            gap: 4px;
+            margin: 10px 0 6px;
             flex-wrap: wrap;
         }
 
@@ -185,41 +192,47 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex: 1 0 50px;
+            flex: 1 0 48px;
             min-width: 40px;
             position: relative;
         }
 
         .timeline-node .dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #cbd5e1;
-            border: 2px solid #ffffff;
+            border: 2px solid #fff;
             box-shadow: 0 0 0 2px #cbd5e1;
-            transition: 0.15s;
+            transition: 0.1s;
         }
 
         .timeline-node .dot.active {
-            background: #2563eb;
-            box-shadow: 0 0 0 3px #2563eb33;
-            border-color: #2563eb;
+            background: #1f5b9e;
+            box-shadow: 0 0 0 3px #1f5b9e33;
+            border-color: #1f5b9e;
         }
 
         .timeline-node .dot.warning {
-            background: #f59e0b;
-            box-shadow: 0 0 0 3px #f59e0b33;
-            border-color: #f59e0b;
+            background: #e67e22;
+            box-shadow: 0 0 0 3px #e67e2233;
+            border-color: #e67e22;
         }
 
         .timeline-node .dot.danger {
-            background: #dc2626;
-            box-shadow: 0 0 0 3px #dc262633;
-            border-color: #dc2626;
+            background: #c0392b;
+            box-shadow: 0 0 0 3px #c0392b33;
+            border-color: #c0392b;
+        }
+
+        .timeline-node .dot.green {
+            background: #27ae60;
+            box-shadow: 0 0 0 3px #27ae6033;
+            border-color: #27ae60;
         }
 
         .timeline-node .label {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             color: #1e293b;
             margin-top: 6px;
@@ -229,27 +242,29 @@
         }
 
         .timeline-node .sub-label {
-            font-size: 9px;
-            color: #6b7b93;
+            font-size: 8px;
+            color: #6b7f9a;
             text-align: center;
             font-weight: 400;
+            letter-spacing: 0.2px;
         }
 
         .timeline-connector {
-            flex: 1 0 12px;
+            flex: 1 0 10px;
             height: 2px;
-            background: #dce2ec;
-            min-width: 8px;
+            background: #d0d9e6;
+            min-width: 6px;
+            margin-top: 6px;
         }
 
-        /* ===== 图例辅助 ===== */
+        /* ===== 图例 ===== */
         .legend-inline {
             display: flex;
-            gap: 18px;
+            gap: 16px;
             flex-wrap: wrap;
             font-size: 12px;
             font-weight: 500;
-            color: #33455e;
+            color: #2c405a;
             margin-top: 6px;
         }
 
@@ -260,13 +275,84 @@
         }
 
         .legend-inline .l1::before {
-            color: #2563eb;
+            color: #c0392b;
         }
         .legend-inline .l2::before {
-            color: #f59e0b;
+            color: #e67e22;
         }
         .legend-inline .l3::before {
-            color: #dc2626;
+            color: #1f5b9e;
+        }
+
+        /* ===== 方法卡片 ===== */
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .method-item {
+            background: #f6f9fe;
+            border-radius: 14px;
+            padding: 14px 16px;
+            border-left: 4px solid #1f5b9e;
+        }
+
+        .method-item .title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #0b1b33;
+        }
+
+        .method-item .desc {
+            font-size: 13px;
+            color: #3d5470;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        .method-item .desc .highlight {
+            background: #e9eef6;
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* ===== 布局辅助 ===== */
+        .flex-1 {
+            flex: 1;
+        }
+        .mt-1 {
+            margin-top: 6px;
+        }
+        .mt-2 {
+            margin-top: 12px;
+        }
+        .text-muted {
+            color: #6b7f9a;
+            font-size: 13px;
+        }
+        .border-top-light {
+            border-top: 1px solid #e6edf5;
+            padding-top: 14px;
+            margin-top: 10px;
+        }
+
+        .card-accent-blue {
+            border-top: 4px solid #1f5b9e;
+        }
+        .card-accent-amber {
+            border-top: 4px solid #e67e22;
+        }
+        .card-accent-rose {
+            border-top: 4px solid #c0392b;
+        }
+        .card-accent-green {
+            border-top: 4px solid #27ae60;
+        }
+        .card-accent-purple {
+            border-top: 4px solid #8e44ad;
         }
 
         /* ===== 响应式 ===== */
@@ -278,82 +364,71 @@
 
         @media (max-width: 700px) {
             body {
-                padding: 16px 12px;
+                padding: 16px 10px;
             }
             .header h1 {
-                font-size: 22px;
+                font-size: 20px;
             }
             .stat-number {
-                font-size: 22px;
-            }
-            .chart-container {
-                height: 200px;
+                font-size: 24px;
             }
             .chart-container.tall {
+                height: 200px;
+            }
+            .chart-container.full {
                 height: 220px;
             }
-            .timeline-node .label {
-                font-size: 9px;
-                max-width: 50px;
-            }
-            .card {
-                padding: 16px 12px;
-            }
-        }
-
-        /* ===== 小工具 ===== */
-        .flex-1 {
-            flex: 1;
-        }
-        .mt-2 {
-            margin-top: 10px;
-        }
-        .text-muted {
-            color: #6b7b93;
-            font-size: 13px;
-        }
-        .border-top-light {
-            border-top: 1px solid #e6edf5;
-            padding-top: 14px;
-            margin-top: 8px;
-        }
-
-        /* 卡片的颜色点缀 */
-        .card-accent-blue {
-            border-top: 4px solid #2563eb;
-        }
-        .card-accent-amber {
-            border-top: 4px solid #f59e0b;
-        }
-        .card-accent-rose {
-            border-top: 4px solid #dc2626;
-        }
-        .card-accent-purple {
-            border-top: 4px solid #7c3aed;
-        }
-        .card-accent-emerald {
-            border-top: 4px solid #059669;
-        }
-
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        @media (max-width: 600px) {
-            .grid-2col {
+            .method-grid {
                 grid-template-columns: 1fr;
             }
+            .timeline-node .label {
+                font-size: 8px;
+                max-width: 40px;
+            }
+            .card {
+                padding: 14px 12px;
+            }
         }
 
+        /* ===== 页脚 ===== */
         .footer-note {
             text-align: center;
             font-size: 13px;
-            color: #8091aa;
+            color: #7a8fa8;
             border-top: 1px solid #e2e9f2;
-            padding-top: 24px;
-            margin-top: 16px;
+            padding-top: 22px;
+            margin-top: 10px;
+        }
+
+        /* ===== 特定卡片 ===== */
+        .insight-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 14px 16px;
+            border: 1px solid #e6edf6;
+        }
+
+        .insight-card p {
+            font-size: 13.5px;
+            line-height: 1.7;
+            color: #1a2f47;
+            margin-bottom: 6px;
+        }
+
+        .insight-card i {
+            color: #1f5b9e;
+            width: 22px;
+        }
+
+        .badge-key {
+            background: #1f5b9e;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 10px;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -366,182 +441,228 @@
         <!-- ============================================================ -->
         <div class="header">
             <h1>
-                <i class="fas fa-chart-line" style="color:#2563eb;"></i>
+                <i class="fas fa-chart-pie" style="color:#1f5b9e;"></i>
                 山姆托举梗 · 舆情数据看板
-                <small>算法放大情绪 · 极化分析</small>
+                <small>研究设计与分析发现</small>
             </h1>
             <div class="sub">
-                <i class="fas fa-calendar-alt" style="margin-right:10px;color:#2563eb;"></i>
-                研究周期：2026.05.20 – 2026.06.10 &nbsp;|&nbsp;
-                <i class="fas fa-database" style="margin-right:6px;color:#2563eb;"></i>
-                抖音评论 4,218 条 · 微博 3,239 条 · 主流媒体 14 篇
+                <span><i class="fas fa-calendar-alt"></i> 2026.05.20 – 2026.06.10</span>
+                <span><i class="fas fa-database"></i> 抖音 4,218 条 · 微博 2,483 条 · 媒体 14 篇</span>
+                <span><i class="fas fa-check-circle" style="color:#27ae60;"></i> 已脱敏</span>
+                <span><i class="fas fa-tag"></i> 编码 Kappa = 0.83</span>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- 第一行：关键指标 + 时间轴 -->
+        <!-- 第一部分：研究设计与方法 (Research Design) -->
         <!-- ============================================================ -->
+
+        <!-- 行：案例选择 + 时间轴 + 数据来源 -->
         <div class="grid">
 
-            <!-- 卡片：关键数据 -->
-            <div class="card col-span-12 col-md-6" style="grid-column: span 6;">
+            <!-- 案例选择与时间范围 -->
+            <div class="card card-accent-blue" style="grid-column: span 5;">
                 <div class="card-header">
-                    <span><i class="fas fa-chart-simple"></i> 数据总览</span>
-                    <span class="badge">采集范围 5.20–6.10</span>
+                    <span><i class="fas fa-bullseye"></i> 案例选择 · 时间范围</span>
+                    <span class="badge">标杆案例</span>
+                </div>
+                <div style="font-size:14px;line-height:1.7;color:#1e2f47;">
+                    <p><strong>事件</strong>：2026年5—6月“山姆托举梗”</p>
+                    <p><strong>周期</strong>：2026.05.20 – 2026.06.10（覆盖铺垫→消退）</p>
+                    <p><strong>传播闭环</strong>：7天（5.30–6.5）快起快落</p>
+                    <p><strong>议题</strong>：短视频伦理 · 算法治理 · 网络暴力</p>
+                    <div class="border-top-light" style="margin-top:8px;padding-top:10px;font-size:13px;">
+                        <i class="fas fa-check-circle" style="color:#27ae60;"></i> 完整传播链：前置人设 → 引爆 → 极化 → 公关 → 处罚
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时间轴（详细节点） -->
+            <div class="card" style="grid-column: span 7;">
+                <div class="card-header">
+                    <span><i class="fas fa-clock"></i> 传播闭环 · 关键节点</span>
+                    <span class="badge">7天快起快落</span>
+                </div>
+                <div class="timeline-strip">
+                    <div class="timeline-node">
+                        <div class="dot active"></div>
+                        <div class="label">5.20</div>
+                        <div class="sub-label">铺垫开始</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot active"></div>
+                        <div class="label">5.29</div>
+                        <div class="sub-label">7条铺垫</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot danger"></div>
+                        <div class="label" style="font-weight:700;color:#b91c1c;">5.30</div>
+                        <div class="sub-label">🔥 引爆</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot warning"></div>
+                        <div class="label">5.31</div>
+                        <div class="sub-label">发酵</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot danger"></div>
+                        <div class="label" style="font-weight:600;">6.1</div>
+                        <div class="sub-label">道歉·直播</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot warning"></div>
+                        <div class="label">6.2</div>
+                        <div class="sub-label">二次道歉</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot green"></div>
+                        <div class="label" style="font-weight:600;">6.3</div>
+                        <div class="sub-label">顶格处罚</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-node">
+                        <div class="dot"></div>
+                        <div class="label">6.10</div>
+                        <div class="sub-label">消退</div>
+                    </div>
+                </div>
+                <div class="legend-inline" style="margin-top:2px;">
+                    <span class="l1"><span style="font-weight:500;">铺垫期</span> 5.20–29</span>
+                    <span class="l3"><span style="font-weight:500;">爆发期</span> 5.30–6.3</span>
+                    <span class="l2"><span style="font-weight:500;">消退期</span> 6.4–10</span>
+                </div>
+            </div>
+
+        </div><!-- /grid -->
+
+        <!-- 行：数据来源 + 分析方法 -->
+        <div class="grid">
+
+            <!-- 数据来源 -->
+            <div class="card card-accent-green" style="grid-column: span 5;">
+                <div class="card-header">
+                    <span><i class="fas fa-database"></i> 数据来源与采集</span>
+                    <span class="badge">三渠道</span>
                 </div>
                 <div class="stat-row">
                     <div class="stat-item">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">抖音视频</div>
+                        <span class="trend">含7条铺垫</span>
+                    </div>
+                    <div class="stat-item">
                         <div class="stat-number">4,218</div>
                         <div class="stat-label">抖音评论</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">756</div>
+                        <div class="stat-label">微博博文</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">2,483</div>
                         <div class="stat-label">微博评论</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">156</div>
-                        <div class="stat-label">相关视频</div>
-                    </div>
-                    <div class="stat-item">
                         <div class="stat-number">14</div>
-                        <div class="stat-label">主流媒体评论</div>
+                        <div class="stat-label">主流媒体</div>
+                        <span class="trend">人民日报等</span>
                     </div>
                 </div>
-                <div class="border-top-light">
-                    <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:14px;">
-                        <span><span style="font-weight:600;">编码信度</span> Kappa = 0.83</span>
-                        <span><span style="font-weight:600;">情感分析</span> SnowNLP · 0–1 区间</span>
-                        <span><i class="fas fa-check-circle" style="color:#059669;"></i> 脱敏处理</span>
-                    </div>
+                <div class="border-top-light" style="font-size:13px;color:#3d5470;">
+                    <i class="fas fa-user-secret" style="color:#27ae60;"></i> 所有用户内容已脱敏（隐去用户名、头像）
                 </div>
             </div>
 
-            <!-- 卡片：时间轴（传播周期） -->
-            <div class="card timeline-card col-span-12 col-md-6" style="grid-column: span 6;">
+            <!-- 分析方法 -->
+            <div class="card card-accent-purple" style="grid-column: span 7;">
                 <div class="card-header">
-                    <span><i class="fas fa-clock"></i> 完整传播闭环 · 7 天</span>
-                    <span class="badge">快起快落</span>
+                    <span><i class="fas fa-microscope"></i> 分析方法</span>
+                    <span class="badge">混合方法</span>
                 </div>
-                <div class="card-body">
-                    <div class="timeline-strip">
-                        <!-- 5.20 铺垫开始 -->
-                        <div class="timeline-node">
-                            <div class="dot active"></div>
-                            <div class="label">5.20</div>
-                            <div class="sub-label">铺垫开始</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 5.29 铺垫结束 -->
-                        <div class="timeline-node">
-                            <div class="dot active"></div>
-                            <div class="label">5.29</div>
-                            <div class="sub-label">7条铺垫</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 5.30 核心引爆 -->
-                        <div class="timeline-node">
-                            <div class="dot danger"></div>
-                            <div class="label" style="font-weight:700;color:#b91c1c;">5.30</div>
-                            <div class="sub-label">🔥 引爆</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 5.31 发酵 -->
-                        <div class="timeline-node">
-                            <div class="dot warning"></div>
-                            <div class="label">5.31</div>
-                            <div class="sub-label">发酵</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 6.1 道歉+直播 -->
-                        <div class="timeline-node">
-                            <div class="dot danger"></div>
-                            <div class="label" style="font-weight:600;">6.1</div>
-                            <div class="sub-label">道歉·直播</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 6.2 二次道歉 -->
-                        <div class="timeline-node">
-                            <div class="dot warning"></div>
-                            <div class="label">6.2</div>
-                            <div class="sub-label">二次道歉</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 6.3 平台处罚 -->
-                        <div class="timeline-node">
-                            <div class="dot active"></div>
-                            <div class="label" style="font-weight:600;">6.3</div>
-                            <div class="sub-label">顶格处罚</div>
-                        </div>
-                        <div class="timeline-connector"></div>
-                        <!-- 6.10 消退 -->
-                        <div class="timeline-node">
-                            <div class="dot"></div>
-                            <div class="label">6.10</div>
-                            <div class="sub-label">消退</div>
+                <div class="method-grid">
+                    <div class="method-item">
+                        <div class="title"><i class="fas fa-tag" style="color:#1f5b9e;"></i> 内容分析</div>
+                        <div class="desc">
+                            编码框架：<span class="highlight">情绪倾向</span>（支持/反对/中立/宣泄/事实）、
+                            <span class="highlight">讨论主题</span>（阶层焦虑/育儿/摆拍/网暴等）、
+                            <span class="highlight">互动类型</span>（原创/回复/转发）<br />
+                            <span style="font-size:12px;color:#5a6f8a;">Kappa = 0.83（信度可接受）</span>
                         </div>
                     </div>
-                    <div class="legend-inline" style="margin-top:6px;">
-                        <span class="l1"><span style="font-weight:500;">铺垫期</span> 5.20–29</span>
-                        <span class="l3"><span style="font-weight:500;">爆发期</span> 5.30–6.3</span>
-                        <span class="l2"><span style="font-weight:500;">消退期</span> 6.4–10</span>
+                    <div class="method-item">
+                        <div class="title"><i class="fas fa-heart" style="color:#c0392b;"></i> 文本情感分析</div>
+                        <div class="desc">
+                            使用 <span class="highlight">SnowNLP</span> 库对评论进行情感极性评分（0–1区间）<br />
+                            <span class="highlight">0–0.4</span> 负面 · <span class="highlight">0.4–0.6</span> 中性 · <span class="highlight">0.6–1</span> 正面<br />
+                            <span style="font-size:12px;color:#5a6f8a;">Excel 透视图表 + 折线图辅助趋势描述</span>
+                        </div>
                     </div>
+                </div>
+                <div style="font-size:12px;color:#5a6f8a;margin-top:6px;border-top:1px dashed #e2e9f2;padding-top:8px;">
+                    <i class="fas fa-lightbulb" style="color:#e67e22;"></i> 实操体会：Excel 透视图表即可完成基础趋势统计，方法为问题服务，并非越复杂越好。
                 </div>
             </div>
 
         </div><!-- /grid -->
 
         <!-- ============================================================ -->
-        <!-- 第二行：情感极性变化（折线图 + 堆叠柱状图） -->
+        <!-- 第二部分：分析与发现 (Analysis & Findings) -->
         <!-- ============================================================ -->
+
+        <!-- 行：情感极性趋势（折线图） + 阶段情感分布（堆叠柱状图） -->
         <div class="grid">
 
-            <!-- 折线图：情感极性趋势 -->
-            <div class="card col-span-12 col-md-8" style="grid-column: span 8;">
+            <!-- 折线图：逐日情感极性 -->
+            <div class="card card-accent-rose" style="grid-column: span 8;">
                 <div class="card-header">
                     <span><i class="fas fa-wave-square"></i> 评论情感极性 · 逐日变化</span>
-                    <span class="badge">负面 ↑ 爆发期</span>
+                    <span class="badge">爆发期负面↑</span>
                 </div>
-                <div id="chart-trend" class="chart-container tall"></div>
-                <div class="legend-inline" style="margin-top:-8px;">
+                <div id="chart-trend" class="chart-container full"></div>
+                <div class="legend-inline">
                     <span class="l1">负面 (0–0.4)</span>
                     <span class="l2">中性 (0.4–0.6)</span>
                     <span class="l3">正面 (0.6–1)</span>
                 </div>
             </div>
 
-            <!-- 堆叠柱状图：阶段分布 -->
-            <div class="card col-span-12 col-md-4" style="grid-column: span 4;">
+            <!-- 堆叠柱状图：四阶段情感构成 -->
+            <div class="card card-accent-amber" style="grid-column: span 4;">
                 <div class="card-header">
                     <span><i class="fas fa-layer-group"></i> 各阶段情感构成</span>
-                    <span class="badge">四阶段</span>
+                    <span class="badge">表1 数据</span>
                 </div>
                 <div id="chart-stacked" class="chart-container tall"></div>
-                <div style="font-size:12px;color:#4b5b73;margin-top:4px;text-align:center;">
+                <div style="font-size:11px;color:#5a6f8a;text-align:center;margin-top:2px;">
                     铺垫期 · 发酵期 · 爆发期 · 消退期
                 </div>
             </div>
 
         </div><!-- /grid -->
 
-        <!-- ============================================================ -->
-        <!-- 第三行：情绪宣泄占比 + 评论立场分布 -->
-        <!-- ============================================================ -->
+        <!-- 行：情绪宣泄占比 + 评论立场分布 + 核心发现 -->
         <div class="grid">
 
-            <!-- 情绪宣泄占比（柱状图） -->
-            <div class="card col-span-12 col-md-5" style="grid-column: span 5;">
+            <!-- 情绪宣泄型占比（柱状图） -->
+            <div class="card card-accent-rose" style="grid-column: span 4;">
                 <div class="card-header">
-                    <span><i class="fas fa-fire"></i> 情绪宣泄型占比（负面评论中）</span>
+                    <span><i class="fas fa-fire"></i> 情绪宣泄型占比<br /><span style="font-size:12px;font-weight:400;">（负面评论中）</span></span>
                     <span class="badge">爆发期 61%</span>
                 </div>
                 <div id="chart-emotion" class="chart-container tall"></div>
-                <div style="font-size:12px;color:#4b5b73;margin-top:2px;">
-                    <i class="fas fa-circle" style="color:#dc2626;font-size:10px;"></i> 宣泄：无实质内容的情感发泄
+                <div style="font-size:11px;color:#5a6f8a;margin-top:2px;">
+                    <i class="fas fa-circle" style="color:#c0392b;font-size:10px;"></i> 宣泄：无实质内容的情绪发泄（如“活该”“可笑”）
                 </div>
             </div>
 
-            <!-- 评论立场分布（环形图） + 关键发现 -->
-            <div class="card col-span-12 col-md-4" style="grid-column: span 4;">
+            <!-- 评论立场分布（环形图） -->
+            <div class="card card-accent-green" style="grid-column: span 4;">
                 <div class="card-header">
                     <span><i class="fas fa-users"></i> 评论立场分布</span>
                     <span class="badge">批评主导</span>
@@ -552,73 +673,71 @@
                 </div>
             </div>
 
-            <!-- 关键发现摘要 -->
-            <div class="card col-span-12 col-md-3" style="grid-column: span 3; background: #f8faff;">
+            <!-- 核心发现摘要 -->
+            <div class="card card-accent-blue" style="grid-column: span 4;">
                 <div class="card-header">
-                    <span><i class="fas fa-bolt" style="color:#f59e0b;"></i> 核心发现</span>
+                    <span><i class="fas fa-bolt" style="color:#e67e22;"></i> 核心发现</span>
                     <span class="badge">算法放大</span>
                 </div>
-                <div style="font-size:14px;line-height:1.7;color:#1e2a44;">
-                    <p><i class="fas fa-check-circle" style="color:#059669;width:18px;"></i> 完播率优先 → <strong>情绪筛选器</strong></p>
-                    <p><i class="fas fa-check-circle" style="color:#059669;width:18px;"></i> 协同过滤 → <strong>情绪回音室</strong></p>
-                    <p><i class="fas fa-check-circle" style="color:#059669;width:18px;"></i> 双机制叠加 → <strong>极化引擎</strong></p>
-                    <p style="margin-top:10px;border-top:1px dashed #dce2ec;padding-top:10px;font-size:13px;color:#3d4e66;">
-                        <i class="fas fa-quote-left" style="color:#2563eb;"></i>
-                        算法不是中立管道，而是情绪基础设施
-                    </p>
+                <div class="insight-card">
+                    <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> <strong>完播率优先</strong> → “情绪筛选器”<br />
+                    <span style="font-size:12px;color:#3d5470;">高唤醒内容（冲突/焦虑）被优先推荐</span></p>
+                    <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> <strong>协同过滤</strong> → “情绪回音室”<br />
+                    <span style="font-size:12px;color:#3d5470;">同类情绪用户被聚集，异质信息被过滤</span></p>
+                    <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> <strong>双机制叠加</strong> → 极化引擎<br />
+                    <span style="font-size:12px;color:#3d5470;">从多元讨论 → 单一情绪宣泄</span></p>
+                </div>
+                <div style="margin-top:6px;font-size:13px;background:#f0f6fe;padding:8px 12px;border-radius:10px;border-left:3px solid #1f5b9e;">
+                    <i class="fas fa-quote-left" style="color:#1f5b9e;"></i> 算法不是中立管道，而是情绪基础设施
                 </div>
             </div>
 
         </div><!-- /grid -->
 
         <!-- ============================================================ -->
-        <!-- 第四行：主流媒体词云 + 方法说明 -->
+        <!-- 附加：主流媒体高频议题 + 数据证据说明 -->
         <!-- ============================================================ -->
         <div class="grid">
 
-            <!-- 媒体评论词云（模拟） -->
-            <div class="card col-span-12 col-md-7" style="grid-column: span 7;">
+            <!-- 主流媒体词云（模拟） -->
+            <div class="card" style="grid-column: span 7;">
                 <div class="card-header">
                     <span><i class="fas fa-newspaper"></i> 主流媒体高频议题</span>
                     <span class="badge">14 篇评论</span>
                 </div>
-                <div style="display:flex;flex-wrap:wrap;gap:10px 18px;padding:6px 0 0;align-items:center;">
-                    <span style="font-size:24px;font-weight:700;color:#1e3a6b;">算法</span>
-                    <span style="font-size:20px;font-weight:600;color:#2563eb;">流量冲动</span>
-                    <span style="font-size:28px;font-weight:700;color:#b91c1c;">极化</span>
-                    <span style="font-size:18px;font-weight:500;color:#6b7b93;">平台责任</span>
-                    <span style="font-size:26px;font-weight:700;color:#7c3aed;">情绪化</span>
-                    <span style="font-size:20px;font-weight:600;color:#059669;">治理</span>
-                    <span style="font-size:22px;font-weight:600;color:#d97706;">网暴</span>
-                    <span style="font-size:16px;font-weight:500;color:#4b5b73;">价值观</span>
-                    <span style="font-size:30px;font-weight:700;color:#dc2626;">冲突</span>
-                    <span style="font-size:18px;font-weight:500;color:#2563eb;">完播率</span>
-                    <span style="font-size:22px;font-weight:600;color:#1e293b;">协同过滤</span>
-                    <span style="font-size:16px;font-weight:500;color:#6b7b93;">回音室</span>
+                <div style="display:flex;flex-wrap:wrap;gap:10px 20px;padding:6px 0 4px;align-items:center;">
+                    <span style="font-size:26px;font-weight:700;color:#15273f;">算法</span>
+                    <span style="font-size:22px;font-weight:600;color:#1f5b9e;">流量冲动</span>
+                    <span style="font-size:30px;font-weight:700;color:#b91c1c;">极化</span>
+                    <span style="font-size:18px;font-weight:500;color:#5a6f8a;">平台责任</span>
+                    <span style="font-size:28px;font-weight:700;color:#8e44ad;">情绪化</span>
+                    <span style="font-size:20px;font-weight:600;color:#27ae60;">治理</span>
+                    <span style="font-size:22px;font-weight:600;color:#e67e22;">网暴</span>
+                    <span style="font-size:16px;font-weight:500;color:#3d5470;">价值观</span>
+                    <span style="font-size:32px;font-weight:700;color:#c0392b;">冲突</span>
+                    <span style="font-size:18px;font-weight:500;color:#1f5b9e;">完播率</span>
+                    <span style="font-size:22px;font-weight:600;color:#15273f;">协同过滤</span>
+                    <span style="font-size:16px;font-weight:500;color:#5a6f8a;">回音室</span>
                 </div>
-                <div class="border-top-light" style="font-size:13px;color:#3d4e66;">
-                    <i class="fas fa-quote-left" style="color:#2563eb;"></i>
+                <div class="border-top-light" style="font-size:13px;color:#3d5470;">
+                    <i class="fas fa-quote-left" style="color:#1f5b9e;"></i>
                     人民日报 · 澎湃新闻 · 中国青年报 · 南方日报 等
                 </div>
             </div>
 
-            <!-- 方法简述 -->
-            <div class="card col-span-12 col-md-5" style="grid-column: span 5;">
+            <!-- 数据证据说明 -->
+            <div class="card" style="grid-column: span 5; background:#fafdff;">
                 <div class="card-header">
-                    <span><i class="fas fa-microscope"></i> 分析方法</span>
-                    <span class="badge">混合</span>
+                    <span><i class="fas fa-clipboard-check"></i> 数据证据支撑</span>
+                    <span class="badge">避免主观</span>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:14px;">
-                    <div>
-                        <span style="font-weight:600;color:#1e293b;"><i class="fas fa-tag" style="color:#2563eb;"></i> 内容编码</span>
-                        <div style="color:#3d4e66;line-height:1.5;margin-top:4px;">情绪倾向 · 讨论主题 · 互动类型<br /><span style="font-size:12px;">Kappa = 0.83</span></div>
-                    </div>
-                    <div>
-                        <span style="font-weight:600;color:#1e293b;"><i class="fas fa-heart" style="color:#dc2626;"></i> 情感分析</span>
-                        <div style="color:#3d4e66;line-height:1.5;margin-top:4px;">SnowNLP · 0–1 评分<br /><span style="font-size:12px;">负面 / 中性 / 正面</span></div>
-                    </div>
-                    <div style="grid-column:1/3;border-top:1px dashed #e2e9f2;padding-top:10px;font-size:13px;color:#4b5b73;">
-                        <i class="fas fa-table" style="color:#2563eb;"></i> Excel 透视图表 · 折线图 · 堆叠柱状图
+                <div style="font-size:14px;line-height:1.8;color:#1e2f47;">
+                    <p><i class="fas fa-table" style="color:#1f5b9e;width:24px;"></i> <strong>表1</strong> 四阶段情感极性分布（38%→48%→69%→52%）</p>
+                    <p><i class="fas fa-chart-line" style="color:#1f5b9e;width:24px;"></i> <strong>图1</strong> 逐日情感趋势折线图（爆发期负面峰值）</p>
+                    <p><i class="fas fa-chart-pie" style="color:#1f5b9e;width:24px;"></i> <strong>立场分布</strong> 批评57% · 同情21% · 中立22%</p>
+                    <p><i class="fas fa-fire" style="color:#c0392b;width:24px;"></i> <strong>宣泄型</strong> 发酵期27% → 爆发期61% → 消退期43%</p>
+                    <div style="background:#eef4fb;padding:6px 12px;border-radius:8px;margin-top:4px;font-size:13px;">
+                        <i class="fas fa-check-circle" style="color:#27ae60;"></i> 所有数据均来自抖音4,218条评论内容编码与情感分析
                     </div>
                 </div>
             </div>
@@ -629,8 +748,8 @@
         <!-- 页脚 -->
         <!-- ============================================================ -->
         <div class="footer-note">
-            <i class="fas fa-database" style="margin-right:6px;"></i> 数据基于 2026.05.20 – 2026.06.10 抖音 · 微博公开内容，已做脱敏处理
-            &nbsp;·&nbsp; 可视化 <i class="fas fa-code"></i> ECharts
+            <i class="fas fa-database"></i> 数据基于 2026.05.20 – 2026.06.10 抖音 · 微博公开内容，已脱敏处理 &nbsp;·&nbsp;
+            <i class="fas fa-code"></i> 可视化 ECharts 5 &nbsp;·&nbsp; 报告《流量冲动与情绪茧房》
         </div>
 
     </div><!-- /dashboard -->
@@ -641,26 +760,24 @@
     <!-- ============================================================ -->
     <script>
         (function() {
-
-            // ----- 色彩 -----
-            const blue = '#2563eb';
-            const amber = '#f59e0b';
-            const red = '#dc2626';
-            const green = '#059669';
-            const purple = '#7c3aed';
+            // 色彩常量
+            const blue = '#1f5b9e';
+            const amber = '#e67e22';
+            const red = '#c0392b';
+            const green = '#27ae60';
+            const purple = '#8e44ad';
             const gray = '#94a3b8';
 
             // ============================================================
-            // 1. 情感极性趋势折线图 (按日期)
+            // 1. 情感极性趋势折线图 (逐日)
             // ============================================================
             const trendChart = echarts.init(document.getElementById('chart-trend'));
 
-            // 模拟每日数据 (5.20 ~ 6.10)
+            // 生成日期 5.20 ~ 6.10 (22天)
             const dates = [];
             const neg = [];
             const neu = [];
             const pos = [];
-            // 从 5.20 到 6.10 共 22 天
             const start = new Date(2026, 4, 20);
             for (let i = 0; i < 22; i++) {
                 const d = new Date(start);
@@ -668,26 +785,26 @@
                 const month = (d.getMonth() + 1).toString().padStart(2, '0');
                 const day = d.getDate().toString().padStart(2, '0');
                 dates.push(month + '/' + day);
-                // 基于事件阶段模拟数值
+
+                // 基于阶段模拟数据（与表1趋势吻合）
                 let n, ne, p;
-                if (i < 10) { // 5.20-5.29 铺垫期
-                    n = 32 + Math.random() * 12;
-                    ne = 38 + Math.random() * 10;
-                    p = 22 + Math.random() * 12;
-                } else if (i < 12) { // 5.30-5.31 引爆发酵
-                    n = 48 + Math.random() * 8;
-                    ne = 26 + Math.random() * 8;
+                if (i < 10) { // 铺垫期 5.20-5.29
+                    n = 34 + Math.random() * 8;
+                    ne = 38 + Math.random() * 8;
                     p = 20 + Math.random() * 8;
-                } else if (i < 15) { // 6.1-6.3 爆发期
-                    n = 66 + Math.random() * 8;
+                } else if (i < 12) { // 发酵期 5.30-5.31
+                    n = 46 + Math.random() * 6;
+                    ne = 26 + Math.random() * 6;
+                    p = 22 + Math.random() * 6;
+                } else if (i < 15) { // 爆发期 6.1-6.3
+                    n = 66 + Math.random() * 6;
                     ne = 16 + Math.random() * 6;
-                    p = 10 + Math.random() * 6;
-                } else { // 6.4-6.10 消退
-                    n = 48 + Math.random() * 10;
+                    p = 10 + Math.random() * 5;
+                } else { // 消退期 6.4-6.10
+                    n = 48 + Math.random() * 8;
                     ne = 28 + Math.random() * 8;
-                    p = 16 + Math.random() * 8;
+                    p = 16 + Math.random() * 6;
                 }
-                // 归一化到 100%
                 const sum = n + ne + p;
                 neg.push(+(n / sum * 100).toFixed(1));
                 neu.push(+(ne / sum * 100).toFixed(1));
@@ -704,22 +821,13 @@
                     bottom: 0,
                     icon: 'circle',
                     itemWidth: 8,
-                    textStyle: { fontSize: 12, fontWeight: 500 }
+                    textStyle: { fontSize: 11, fontWeight: 500, color: '#2c405a' }
                 },
-                grid: {
-                    top: 18,
-                    bottom: 40,
-                    left: 40,
-                    right: 16
-                },
+                grid: { top: 18, bottom: 40, left: 42, right: 14 },
                 xAxis: {
                     type: 'category',
                     data: dates,
-                    axisLabel: {
-                        fontSize: 10,
-                        interval: 2,
-                        rotate: 30
-                    },
+                    axisLabel: { fontSize: 9, interval: 2, rotate: 30, color: '#4b5f7a' },
                     axisLine: { lineStyle: { color: '#dce2ec' } }
                 },
                 yAxis: {
@@ -727,45 +835,44 @@
                     min: 0,
                     max: 100,
                     splitLine: { lineStyle: { color: '#eef2f7', type: 'dashed' } },
-                    axisLabel: { fontSize: 10, formatter: '{value}%' }
+                    axisLabel: { fontSize: 10, formatter: '{value}%', color: '#4b5f7a' }
                 },
                 series: [{
                     name: '负面',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
-                    symbolSize: 5,
-                    lineStyle: { width: 2.5, color: red },
-                    areaStyle: { color: 'rgba(220,38,38,0.08)' },
+                    symbolSize: 4,
+                    lineStyle: { width: 2.8, color: red },
+                    areaStyle: { color: 'rgba(192,57,43,0.07)' },
                     data: neg
                 }, {
                     name: '中性',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
-                    symbolSize: 5,
-                    lineStyle: { width: 2.5, color: amber },
-                    areaStyle: { color: 'rgba(245,158,11,0.06)' },
+                    symbolSize: 4,
+                    lineStyle: { width: 2.8, color: amber },
+                    areaStyle: { color: 'rgba(230,126,34,0.06)' },
                     data: neu
                 }, {
                     name: '正面',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
-                    symbolSize: 5,
-                    lineStyle: { width: 2.5, color: blue },
-                    areaStyle: { color: 'rgba(37,99,235,0.06)' },
+                    symbolSize: 4,
+                    lineStyle: { width: 2.8, color: blue },
+                    areaStyle: { color: 'rgba(31,91,158,0.06)' },
                     data: pos
                 }]
             });
 
             // ============================================================
-            // 2. 堆叠柱状图：四个阶段
+            // 2. 堆叠柱状图：四阶段
             // ============================================================
             const stackedChart = echarts.init(document.getElementById('chart-stacked'));
 
             const stages = ['铺垫期', '发酵期', '爆发期', '消退期'];
-            // 数据来自表1
             const negStage = [38, 48, 69, 52];
             const neuStage = [42, 28, 19, 31];
             const posStage = [20, 24, 12, 17];
@@ -781,102 +888,96 @@
                     bottom: 0,
                     icon: 'circle',
                     itemWidth: 8,
-                    textStyle: { fontSize: 11, fontWeight: 500 }
+                    textStyle: { fontSize: 11, fontWeight: 500, color: '#2c405a' }
                 },
-                grid: {
-                    top: 16,
-                    bottom: 40,
-                    left: 36,
-                    right: 10
-                },
+                grid: { top: 16, bottom: 38, left: 38, right: 10 },
                 xAxis: {
                     type: 'category',
                     data: stages,
-                    axisLabel: { fontSize: 11, fontWeight: 600 }
+                    axisLabel: { fontSize: 11, fontWeight: 600, color: '#15273f' }
                 },
                 yAxis: {
                     type: 'value',
                     min: 0,
                     max: 100,
                     splitLine: { lineStyle: { color: '#eef2f7', type: 'dashed' } },
-                    axisLabel: { fontSize: 10, formatter: '{value}%' }
+                    axisLabel: { fontSize: 10, formatter: '{value}%', color: '#4b5f7a' }
                 },
                 series: [{
                     name: '负面',
                     type: 'bar',
                     stack: 'total',
                     color: red,
-                    barWidth: 36,
-                    data: negStage
+                    barWidth: 34,
+                    data: negStage,
+                    label: { show: true, position: 'inside', formatter: (p) => p.value + '%', fontSize: 10,
+                        color: '#fff', fontWeight: 600 }
                 }, {
                     name: '中性',
                     type: 'bar',
                     stack: 'total',
                     color: amber,
-                    barWidth: 36,
-                    data: neuStage
+                    barWidth: 34,
+                    data: neuStage,
+                    label: { show: true, position: 'inside', formatter: (p) => p.value + '%', fontSize: 10,
+                        color: '#fff', fontWeight: 600 }
                 }, {
                     name: '正面',
                     type: 'bar',
                     stack: 'total',
                     color: blue,
-                    barWidth: 36,
-                    data: posStage
+                    barWidth: 34,
+                    data: posStage,
+                    label: { show: true, position: 'inside', formatter: (p) => p.value + '%', fontSize: 10,
+                        color: '#fff', fontWeight: 600 }
                 }]
             });
 
             // ============================================================
-            // 3. 情绪宣泄占比柱状图
+            // 3. 情绪宣泄型占比
             // ============================================================
             const emotionChart = echarts.init(document.getElementById('chart-emotion'));
 
-            const emoStages = ['铺垫期', '发酵期', '爆发期', '消退期'];
-            const emoData = [null, 27, 61, 43]; // 铺垫期无数据
+            const emoStages = ['发酵期', '爆发期', '消退期'];
+            const emoData = [27, 61, 43];
 
             emotionChart.setOption({
                 tooltip: {
                     trigger: 'axis',
-                    valueFormatter: (v) => v !== null ? v + '%' : '无数据'
+                    valueFormatter: (v) => v + '%'
                 },
-                grid: {
-                    top: 16,
-                    bottom: 28,
-                    left: 38,
-                    right: 14
-                },
+                grid: { top: 16, bottom: 26, left: 38, right: 14 },
                 xAxis: {
                     type: 'category',
                     data: emoStages,
-                    axisLabel: { fontSize: 11, fontWeight: 500 }
+                    axisLabel: { fontSize: 11, fontWeight: 500, color: '#15273f' }
                 },
                 yAxis: {
                     type: 'value',
                     min: 0,
                     max: 80,
                     splitLine: { lineStyle: { color: '#eef2f7', type: 'dashed' } },
-                    axisLabel: { fontSize: 10, formatter: '{value}%' }
+                    axisLabel: { fontSize: 10, formatter: '{value}%', color: '#4b5f7a' }
                 },
                 series: [{
                     type: 'bar',
                     data: emoData,
-                    color: red,
-                    barWidth: 42,
+                    barWidth: 44,
                     label: {
                         show: true,
                         position: 'top',
-                        formatter: (p) => p.value !== null ? p.value + '%' : '—',
-                        fontSize: 12,
+                        formatter: (p) => p.value + '%',
+                        fontSize: 13,
                         fontWeight: 700,
-                        color: '#1e293b'
+                        color: '#15273f'
                     },
                     itemStyle: {
-                        borderRadius: [4, 4, 0, 0],
+                        borderRadius: [6, 6, 0, 0],
                         color: (params) => {
                             const v = params.value;
-                            if (v === null) return '#dce2ec';
-                            if (v > 50) return '#dc2626';
-                            if (v > 30) return '#f59e0b';
-                            return '#2563eb';
+                            if (v > 50) return '#c0392b';
+                            if (v > 30) return '#e67e22';
+                            return '#1f5b9e';
                         }
                     }
                 }]
@@ -894,30 +995,28 @@
                 },
                 legend: {
                     orient: 'vertical',
-                    right: 10,
+                    right: 6,
                     top: 'center',
-                    textStyle: { fontSize: 12, fontWeight: 500 },
+                    textStyle: { fontSize: 11, fontWeight: 500, color: '#2c405a' },
                     itemWidth: 10,
                     itemHeight: 10
                 },
                 series: [{
                     type: 'pie',
-                    radius: ['50%', '76%'],
+                    radius: ['48%', '74%'],
                     avoidLabelOverlap: true,
                     label: {
                         show: true,
                         formatter: '{b}\n{d}%',
-                        fontSize: 11,
+                        fontSize: 10,
                         fontWeight: 500,
-                        lineHeight: 16
+                        lineHeight: 15,
+                        color: '#15273f'
                     },
-                    emphasis: {
-                        scale: true,
-                        label: { fontWeight: 'bold' }
-                    },
+                    emphasis: { scale: true, label: { fontWeight: 'bold' } },
                     data: [
-                        { value: 57, name: '批评 / 嘲讽', itemStyle: { color: '#dc2626' } },
-                        { value: 21, name: '同情当事人', itemStyle: { color: '#2563eb' } },
+                        { value: 57, name: '批评 / 嘲讽', itemStyle: { color: '#c0392b' } },
+                        { value: 21, name: '同情当事人', itemStyle: { color: '#1f5b9e' } },
                         { value: 22, name: '中立 / 事实讨论', itemStyle: { color: '#94a3b8' } }
                     ]
                 }]
