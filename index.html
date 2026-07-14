@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>山姆托举梗 · 舆情可视化 · 研究设计与发现</title>
-    <!-- Font Awesome 6 (免费) -->
+    <title>山姆托举梗 · 舆情可视化 · 完整研究看板</title>
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- ECharts 5 -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js">
@@ -319,6 +319,61 @@
             font-weight: 500;
         }
 
+        /* ===== 概念释义卡片 ===== */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 6px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .concept-item {
+            background: #f8faff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            border-left: 3px solid #1f5b9e;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .concept-item .term {
+            font-weight: 700;
+            color: #0b1b33;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .concept-item .def {
+            color: #3d5470;
+            font-size: 12px;
+        }
+
+        .concept-item .def i {
+            color: #1f5b9e;
+            margin-right: 4px;
+        }
+
+        /* ===== 流程步骤 ===== */
+        .step-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            font-size: 13px;
+            color: #1e2f47;
+            margin-top: 4px;
+        }
+
+        .step-list .step {
+            background: #eef4fb;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #1f5b9e;
+        }
+
         /* ===== 布局辅助 ===== */
         .flex-1 {
             flex: 1;
@@ -387,6 +442,10 @@
             }
             .card {
                 padding: 14px 12px;
+            }
+            .concept-grid {
+                grid-template-columns: 1fr 1fr;
+                max-height: 250px;
             }
         }
 
@@ -477,7 +536,7 @@
                 </div>
             </div>
 
-            <!-- 时间轴（详细节点） -->
+            <!-- 时间轴（详细节点） + 事件标注 -->
             <div class="card" style="grid-column: span 7;">
                 <div class="card-header">
                     <span><i class="fas fa-clock"></i> 传播闭环 · 关键节点</span>
@@ -537,15 +596,18 @@
                     <span class="l3"><span style="font-weight:500;">爆发期</span> 5.30–6.3</span>
                     <span class="l2"><span style="font-weight:500;">消退期</span> 6.4–10</span>
                 </div>
+                <div style="font-size:12px;color:#5a6f8a;margin-top:4px;background:#f6f9fe;padding:4px 10px;border-radius:8px;">
+                    <i class="fas fa-flag" style="color:#c0392b;"></i> 关键事件：5.30引爆 · 6.1道歉+直播（二次引爆） · 6.3平台处罚
+                </div>
             </div>
 
         </div><!-- /grid -->
 
-        <!-- 行：数据来源 + 分析方法 -->
+        <!-- 行：数据来源 + 分析方法 + 操作流程 -->
         <div class="grid">
 
             <!-- 数据来源 -->
-            <div class="card card-accent-green" style="grid-column: span 5;">
+            <div class="card card-accent-green" style="grid-column: span 4;">
                 <div class="card-header">
                     <span><i class="fas fa-database"></i> 数据来源与采集</span>
                     <span class="badge">三渠道</span>
@@ -577,12 +639,16 @@
                 <div class="border-top-light" style="font-size:13px;color:#3d5470;">
                     <i class="fas fa-user-secret" style="color:#27ae60;"></i> 所有用户内容已脱敏（隐去用户名、头像）
                 </div>
+                <!-- 采集方式说明 -->
+                <div style="font-size:12px;color:#5a6f8a;margin-top:8px;background:#f6f9fe;padding:8px 12px;border-radius:8px;">
+                    <i class="fas fa-hand-pointer" style="color:#1f5b9e;"></i> <strong>采集方式</strong>：人工爬取 + 录屏记录（确保动态证据可追溯）
+                </div>
             </div>
 
             <!-- 分析方法 -->
-            <div class="card card-accent-purple" style="grid-column: span 7;">
+            <div class="card card-accent-purple" style="grid-column: span 8;">
                 <div class="card-header">
-                    <span><i class="fas fa-microscope"></i> 分析方法</span>
+                    <span><i class="fas fa-microscope"></i> 分析方法 · 操作化步骤</span>
                     <span class="badge">混合方法</span>
                 </div>
                 <div class="method-grid">
@@ -598,7 +664,7 @@
                     <div class="method-item">
                         <div class="title"><i class="fas fa-heart" style="color:#c0392b;"></i> 文本情感分析</div>
                         <div class="desc">
-                            使用 <span class="highlight">SnowNLP</span> 库对评论进行情感极性评分（0–1区间）<br />
+                            使用 <span class="highlight">SnowNLP</span> 库进行情感极性评分（0–1区间）<br />
                             <span class="highlight">0–0.4</span> 负面 · <span class="highlight">0.4–0.6</span> 中性 · <span class="highlight">0.6–1</span> 正面<br />
                             <span style="font-size:12px;color:#5a6f8a;">Excel 透视图表 + 折线图辅助趋势描述</span>
                         </div>
@@ -607,9 +673,99 @@
                 <div style="font-size:12px;color:#5a6f8a;margin-top:6px;border-top:1px dashed #e2e9f2;padding-top:8px;">
                     <i class="fas fa-lightbulb" style="color:#e67e22;"></i> 实操体会：Excel 透视图表即可完成基础趋势统计，方法为问题服务，并非越复杂越好。
                 </div>
+                <!-- 操作流程步骤 -->
+                <div class="step-list" style="margin-top:8px;">
+                    <span class="step"><i class="fas fa-search"></i> ① 人工爬取+录屏</span>
+                    <span class="step"><i class="fas fa-code"></i> ② 脱敏处理</span>
+                    <span class="step"><i class="fas fa-tags"></i> ③ 内容编码</span>
+                    <span class="step"><i class="fas fa-chart-line"></i> ④ 情感评分 (SnowNLP)</span>
+                    <span class="step"><i class="fas fa-table"></i> ⑤ 透视表汇总</span>
+                    <span class="step"><i class="fas fa-chart-pie"></i> ⑥ 可视化呈现</span>
+                </div>
             </div>
 
         </div><!-- /grid -->
+
+        <!-- ============================================================ -->
+        <!-- 核心概念释义（新增） -->
+        <!-- ============================================================ -->
+        <div class="grid">
+            <div class="card card-accent-blue" style="grid-column: span 12;">
+                <div class="card-header">
+                    <span><i class="fas fa-book-open"></i> 核心概念操作化释义</span>
+                    <span class="badge">术语表</span>
+                </div>
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <span class="term">人工爬取</span>
+                        <span class="def">手动浏览平台，以关键词为索引逐条复制/截图/录屏保存公开内容，规避反爬机制。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">录屏记录</span>
+                        <span class="def">录制屏幕动态，保存视频播放、评论区加载、关联推荐等动态证据。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">脱敏处理</span>
+                        <span class="def">遮蔽用户名、头像、住址、工作单位等可识别个人身份的信息。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">编码 (内容分析)</span>
+                        <span class="def">按预设框架将评论文本归入情绪倾向、讨论主题、互动类型等类别，实现结构化计数。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">Kappa 系数</span>
+                        <span class="def">衡量两位编码员分类一致性的指标，≥0.80 表示高度一致（本报告 0.83）。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">SnowNLP</span>
+                        <span class="def">中文轻量级情感分析库，输出 0–1 情感极性分数（0消极→1积极）。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">情感极性评分</span>
+                        <span class="def">将文本情感量化为数值，本报告设 0–0.4 负面，0.4–0.6 中性，0.6–1 正面。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">Excel 透视图表</span>
+                        <span class="def">用数据透视表按日期汇总情感类别数量，生成折线图呈现趋势。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">完播率</span>
+                        <span class="def">视频被完整观看的比例；抖音最前置的推荐指标，高唤醒内容天然完播率高。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">协同过滤</span>
+                        <span class="def">推荐算法：和你行为相似的人喜欢什么，就给你推荐什么，形成情绪同温层。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">高唤醒情绪</span>
+                        <span class="def">愤怒、焦虑、兴奋等伴随高生理激活的情绪，强烈吸引注意力、抑制理性思考。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">情绪宣泄型</span>
+                        <span class="def">负面评论中无实质观点、仅发泄情绪的文本（如“活该”“恶心”）。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">流量池</span>
+                        <span class="def">抖音多层推荐机制，视频从初始曝光逐级进入更大池子，完播率决定晋级速度。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">过滤气泡 / 回音室</span>
+                        <span class="def">帕里泽与桑斯坦的概念：算法过滤异质信息，同类观点反复强化，导致群体极化。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">情绪茧房</span>
+                        <span class="def">本报告延伸概念：用户长期沉浸于单一情绪信息流，感受不到不同情绪，认知窄化。</span>
+                    </div>
+                    <div class="concept-item">
+                        <span class="term">情绪基础设施</span>
+                        <span class="def">算法作为社会情绪生产、流通和放大的底层技术装置，非中立，具有价值取向。</span>
+                    </div>
+                </div>
+                <div style="font-size:12px;color:#5a6f8a;margin-top:8px;border-top:1px solid #e6edf5;padding-top:6px;">
+                    <i class="fas fa-info-circle" style="color:#1f5b9e;"></i> 所有术语定义均基于本研究的操作化过程，服务于“算法如何放大情绪”这一核心问题。
+                </div>
+            </div>
+        </div>
 
         <!-- ============================================================ -->
         <!-- 第二部分：分析与发现 (Analysis & Findings) -->
@@ -629,6 +785,9 @@
                     <span class="l1">负面 (0–0.4)</span>
                     <span class="l2">中性 (0.4–0.6)</span>
                     <span class="l3">正面 (0.6–1)</span>
+                </div>
+                <div style="font-size:11px;color:#5a6f8a;margin-top:4px;">
+                    <i class="fas fa-flag" style="color:#c0392b;"></i> 标记：5.30引爆 · 6.1道歉+直播（二次引爆） · 6.3平台处罚
                 </div>
             </div>
 
@@ -756,7 +915,7 @@
 
 
     <!-- ============================================================ -->
-    <!-- ECharts 绘图脚本 -->
+    <!-- ECharts 绘图脚本（含标记线） -->
     <!-- ============================================================ -->
     <script>
         (function() {
@@ -765,11 +924,9 @@
             const amber = '#e67e22';
             const red = '#c0392b';
             const green = '#27ae60';
-            const purple = '#8e44ad';
-            const gray = '#94a3b8';
 
             // ============================================================
-            // 1. 情感极性趋势折线图 (逐日)
+            // 1. 情感极性趋势折线图 (逐日) + 标记事件
             // ============================================================
             const trendChart = echarts.init(document.getElementById('chart-trend'));
 
@@ -786,21 +943,20 @@
                 const day = d.getDate().toString().padStart(2, '0');
                 dates.push(month + '/' + day);
 
-                // 基于阶段模拟数据（与表1趋势吻合）
                 let n, ne, p;
-                if (i < 10) { // 铺垫期 5.20-5.29
+                if (i < 10) { // 铺垫期
                     n = 34 + Math.random() * 8;
                     ne = 38 + Math.random() * 8;
                     p = 20 + Math.random() * 8;
-                } else if (i < 12) { // 发酵期 5.30-5.31
+                } else if (i < 12) { // 发酵期
                     n = 46 + Math.random() * 6;
                     ne = 26 + Math.random() * 6;
                     p = 22 + Math.random() * 6;
-                } else if (i < 15) { // 爆发期 6.1-6.3
+                } else if (i < 15) { // 爆发期
                     n = 66 + Math.random() * 6;
                     ne = 16 + Math.random() * 6;
                     p = 10 + Math.random() * 5;
-                } else { // 消退期 6.4-6.10
+                } else { // 消退期
                     n = 48 + Math.random() * 8;
                     ne = 28 + Math.random() * 8;
                     p = 16 + Math.random() * 6;
@@ -810,6 +966,11 @@
                 neu.push(+(ne / sum * 100).toFixed(1));
                 pos.push(+(p / sum * 100).toFixed(1));
             }
+
+            // 计算标记位置 (日期索引)
+            const idx5_30 = 10; // 5.30 为第11个 (索引10)
+            const idx6_1 = 12; // 6.1 为第13个 (索引12)
+            const idx6_3 = 14; // 6.3 为第15个 (索引14)
 
             trendChart.setOption({
                 tooltip: {
@@ -845,7 +1006,19 @@
                     symbolSize: 4,
                     lineStyle: { width: 2.8, color: red },
                     areaStyle: { color: 'rgba(192,57,43,0.07)' },
-                    data: neg
+                    data: neg,
+                    markLine: {
+                        silent: true,
+                        data: [
+                            { xAxis: idx5_30, label: { formatter: '引爆 5.30', color: '#c0392b',
+                                    fontSize: 10, fontWeight: 600 } },
+                            { xAxis: idx6_1, label: { formatter: '道歉+直播 6.1', color: '#e67e22',
+                                    fontSize: 10, fontWeight: 600 } },
+                            { xAxis: idx6_3, label: { formatter: '处罚 6.3', color: '#27ae60',
+                                    fontSize: 10, fontWeight: 600 } }
+                        ],
+                        lineStyle: { color: '#94a3b8', type: 'dashed', width: 1 }
+                    }
                 }, {
                     name: '中性',
                     type: 'line',
